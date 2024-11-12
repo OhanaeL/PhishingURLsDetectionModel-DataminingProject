@@ -1,8 +1,10 @@
 import pandas as pd
 import joblib
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the saved model
 model_filename = input("Enter the filename of the saved model (e.g., model.joblib): ")
@@ -32,7 +34,7 @@ X_new_encoded = X_new_encoded.reindex(columns=model.feature_names_in_, fill_valu
 print("Training the model with new data...")
 model.fit(X_new_encoded, y_new)
 
-# Evaluate the updated model (optional)
+# Evaluate the updated model
 X_train, X_test, y_train, y_test = train_test_split(X_new_encoded, y_new, test_size=0.2, random_state=42)
 y_pred = model.predict(X_test)
 
@@ -44,6 +46,14 @@ print(classification_report(y_test, y_pred))
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
+# Visualization: Confusion Matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=model.classes_, yticklabels=model.classes_)
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.show()
 # Save the updated model
 updated_model_filename = input("Enter the filename to save the updated model (e.g., updated_model.joblib): ")
 joblib.dump(model, updated_model_filename)
