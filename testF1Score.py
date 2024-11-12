@@ -1,5 +1,7 @@
 import pandas as pd
-from sklearn.metrics import f1_score, accuracy_score, classification_report
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import f1_score, accuracy_score, classification_report, confusion_matrix
 
 # Load the predictions from the CSV file
 input_file = input("Enter the path of the predictions CSV file (e.g., predictions.csv): ")
@@ -28,3 +30,14 @@ print(f"Accuracy: {accuracy:.2f}")
 # Optionally, print the classification report for detailed metrics
 print("Classification Report:")
 print(classification_report(y_true, y_pred))
+
+# Compute confusion matrix
+cm = confusion_matrix(y_true, y_pred)
+
+# Plot confusion matrix using Seaborn heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Safe', 'Malicious'], yticklabels=['Safe', 'Malicious'])
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.show()
