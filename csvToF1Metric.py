@@ -27,7 +27,6 @@ accuracy = accuracy_score(y_true, y_pred)
 print(f"F1 Score: {f1:.2f}")
 print(f"Accuracy: {accuracy:.2f}")
 
-# Optionally, print the classification report for detailed metrics
 print("Classification Report:")
 print(classification_report(y_true, y_pred))
 
