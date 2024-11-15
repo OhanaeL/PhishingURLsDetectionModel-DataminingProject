@@ -36,7 +36,7 @@ cm = confusion_matrix(y_true, y_pred)
 
 # Plot confusion matrix using Seaborn heatmap
 plt.figure(figsize=(8, 6))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Safe', 'Malicious'], yticklabels=['Safe', 'Malicious'])
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Malicious', 'Safe'], yticklabels=['Malicious', 'Safe'])
 plt.title('Confusion Matrix')
 plt.xlabel('Predicted')
 plt.ylabel('True')
